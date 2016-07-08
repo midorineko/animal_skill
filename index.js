@@ -3,7 +3,8 @@ var speech_out = require('./speech_out');
 
 exports.handler = function( event, context ) {
     var current = event.request.intent.slots.Animal.value;
-    current = current.split(" ")[current.length - 1];
+    current = current.split(" ")
+    current = current[current.length - 1];
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
@@ -13,10 +14,10 @@ exports.handler = function( event, context ) {
     var category = speech_return[1];
     var animal_group = speech_return[2];
 
-    if(final){
+    if(current==="Help"){
+            var helpTxt = 'This skill will let you know the plurals of your favorite animals. Try, alexa ask animal groups the name for zebras. Make sure the animal is stated last.'
+            outout.output(helpTxt, context, false);
+    }else if(final){
         outout.output(animal_group, context, true);
-    }else if(current==="help"){
-        var helpTxt = 'This skill will let you know the plurals of your favorite animals. Try, alexa ask animal groups the name for zebras.'
-        outout.output(helpTxt, context, false);
     }
 };
